@@ -6,6 +6,7 @@ import Summary from './summary/summary';
 class App extends Component {
   constructor(props){
     super(props);
+    this.updateFeature=this.updateFeature.bind(this);
     this.state = {
       selected: {
         Processor: {
@@ -46,32 +47,7 @@ class App extends Component {
               { new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD'})
                   .format(this.state.selected[key].cost) }
             </div>
-        </div>)   
-
-    /*const features = Object.keys(this.props.features)
-          .map(key => {
-            //Options
-            const options = this.props.features[key].map((item, index) => {
-              const selectedClass = item.name === this.state.selected[key].name ? 'feature__selected' : '';
-              const featureClass = 'feature__option ' + selectedClass;
-              return <li key={index} className="feature__item">
-                <div className={featureClass}
-                  
-                  onClick={e => this.updateFeature(key, item)}>
-                    { item.name }
-                    ({ new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD'})
-                      .format(item.cost) })
-                </div>
-              </li>
-            });
-            //Features
-            return <div className="feature" key={key}>
-              <div className="feature__name">{key}</div>
-              <ul className="feature__list">
-                { options }
-              </ul>
-            </div>
-          });  */    
+        </div>)       
 
     return (
       <div className="App">
@@ -83,7 +59,7 @@ class App extends Component {
         <main>
           <Feature 
             features={this.props.features} 
-            handleUpdate={(feature, newValue)=>this.updateFeature(feature, newValue)}
+            handleUpdate={this.updateFeature}
             selectedFeatures={this.state.selected}
           />
           <Summary 
