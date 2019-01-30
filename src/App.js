@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import Feature from './feature/feature';
+import Summary from './summary/summary';
 
 class App extends Component {
   constructor(props){
@@ -35,6 +37,7 @@ class App extends Component {
   }
 
   render() {
+    //Summary list of selected items and cost
     const summary = Object.keys(this.state.selected)
           .map(key => <div className="summary__option" key={key}>
             <div className="summary__option__label">{key}  </div>
@@ -43,14 +46,11 @@ class App extends Component {
               { new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD'})
                   .format(this.state.selected[key].cost) }
             </div>
-        </div>)
+        </div>)   
 
-    const total = Object.keys(this.state.selected)
-          .reduce((acc, curr) => acc + this.state.selected[curr].cost, 0);    
-
-
-    const features = Object.keys(this.props.features)
+    /*const features = Object.keys(this.props.features)
           .map(key => {
+            //Options
             const options = this.props.features[key].map((item, index) => {
               const selectedClass = item.name === this.state.selected[key].name ? 'feature__selected' : '';
               const featureClass = 'feature__option ' + selectedClass;
@@ -64,14 +64,14 @@ class App extends Component {
                 </div>
               </li>
             });
-
+            //Features
             return <div className="feature" key={key}>
               <div className="feature__name">{key}</div>
               <ul className="feature__list">
                 { options }
               </ul>
             </div>
-          });      
+          });  */    
 
     return (
       <div className="App">
@@ -81,21 +81,14 @@ class App extends Component {
           <h5>Customize your laptop</h5>  
         </header>      
         <main>
-          <section className="main__form">
-            <h3>TECH SPECS AND CUSTOMIZATIONS</h3>
-            { features }
-          </section>
-          <section className="main__summary">
-            <h3>NEW GREENLEAF 2018</h3>
-            {summary}
-            <div className="summary__total">
-              <div className="summary__total__label">Your Price: </div>
-              <div className="summary__total__value">
-              { new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD'})
-                  .format(total) }
-              </div>
-            </div>
-          </section>
+          <Feature 
+            features={this.props.features} 
+            handleUpdate={(feature, newValue)=>this.updateFeature(feature, newValue)}
+            selectedFeatures={this.state.selected}
+          />
+          <Summary 
+            selected={this.state.selected} 
+          />
         </main>
       </div>
     );
