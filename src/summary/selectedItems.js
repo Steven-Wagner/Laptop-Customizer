@@ -4,7 +4,7 @@ export default class SelectedItem extends Component {
     render() {
 
         return(
-            <li>
+            <li className="summary__option">
                 <div className="summary__option__label">{this.props.thisFeature}  </div>
                 <div className="summary__option__value">{this.props.selected[this.props.thisFeature].name}</div>
                 <div className="summary__option__cost">

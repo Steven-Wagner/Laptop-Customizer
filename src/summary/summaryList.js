@@ -6,9 +6,8 @@ export default class SummaryList extends Component {
         
         const summary = Object.keys(this.props.selected)
         .map(key => (
-            <div className="summary__option" key={key}>
-                <SelectedItem thisFeature={key} selected={this.props.selected} />
-            </div>)
+            <SelectedItem thisFeature={key} selected={this.props.selected} />
+        )
         )
 
         return(
